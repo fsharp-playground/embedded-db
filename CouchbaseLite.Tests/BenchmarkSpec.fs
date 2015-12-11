@@ -14,8 +14,6 @@ type File =
       Length : int }
 
 [<BenchmarkTask(platform = BenchmarkPlatform.X86, jitVersion = BenchmarkJitVersion.LegacyJit)>]
-//[<BenchmarkTask(platform = BenchmarkPlatform.X64, jitVersion = BenchmarkJitVersion.LegacyJit)>]
-//[<BenchmarkTask(platform = BenchmarkPlatform.X64, jitVersion = BenchmarkJitVersion.RyuJit)>]
 type Db() = 
     
     let createStore() = 
@@ -35,7 +33,7 @@ type Db() =
     member this.Insert() = 
         use store = createStore()
         use session = store.OpenSession()
-        [ 1..100000].map(fun x -> x.ToString() |> createDoc).map(session.Store) |> ignore
+        [ 1..10].map(fun x -> x.ToString() |> createDoc).map(session.Store) |> ignore
         session.SaveChanges()
     
     [<Benchmark>]
@@ -46,12 +44,16 @@ type Db() =
         docs.toList()
 
 [<Test>]
-let ShouldInsertAndQuery() = 
+let ShouldInsertDocuments() = 
     let db = Db()
     db.Insert()
+
+[<Test>]
+let ShouldQueryDocuments() =
+    let db = Db()
     db.Query().length |> should greaterThan 0
 
 [<Test>]
 let ShouldExecuteBenchmark() = 
-    let reports = BenchmarkRunner().RunCompetition(Db())
+    let reports = BenchmarkRunner().Run(typeof<Db>)
     ()
