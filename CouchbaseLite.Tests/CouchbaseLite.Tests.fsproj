@@ -66,14 +66,23 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="RevenDbSpec.fs" />
+    <Compile Include="BenchmarkSpec.fs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BenchmarkDotNet">
+      <HintPath>..\packages\BenchmarkDotNet.0.7.8\lib\net40\BenchmarkDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Couchbase.Lite">
       <HintPath>..\packages\Couchbase.Lite.1.1.2.0\lib\net45\Couchbase.Lite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.3.1.2.5\lib\net40\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core.Fluent-4.0">
+      <HintPath>..\packages\FSharp.Core.Fluent-4.0.1.0.0.5\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\FSharp.Core.Fluent-4.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsUnit.NUnit">
